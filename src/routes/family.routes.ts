@@ -10,7 +10,7 @@ export default class FamilyRouter {
     this.routes = Router();
     this.familyRepository = getRepository(Family);
 
-    this.routes.get('/family', async (request, response) => {
+    this.routes.get('/', async (request, response) => {
       try {
         const familyData = await this.familyRepository.find();
         return response.json(familyData);
@@ -19,7 +19,7 @@ export default class FamilyRouter {
       }
     });
 
-    this.routes.get('/family/:id', async (request, response) => {
+    this.routes.get('/:id', async (request, response) => {
       const { id } = request.params;
 
       try {
@@ -31,7 +31,7 @@ export default class FamilyRouter {
       }
     });
 
-    this.routes.post('/family', async (request, response) => {
+    this.routes.post('/', async (request, response) => {
       try {
         const {
           name,

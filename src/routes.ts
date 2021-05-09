@@ -6,10 +6,10 @@ import FamilyRouter from './routes/family.routes';
 import UserRouter from './routes/user.routes';
 
 export default class Routes {
-  routes: Router;
   donatorRouter: DonatorRouter;
   familyRouter: FamilyRouter;
   userRouter: UserRouter;
+  routes: Router;
 
   constructor() {
     this.routes = Router();
@@ -20,5 +20,9 @@ export default class Routes {
     this.routes.use('/donator', this.donatorRouter.routes);
     this.routes.use('/family', this.familyRouter.routes);
     this.routes.use('/user', this.userRouter.routes);
+    this.routes.post('/elfin', (request, response) => {
+      const { nome, sobrenome } = request.body;
+      return response.json(request.body);
+    });
   }
 }

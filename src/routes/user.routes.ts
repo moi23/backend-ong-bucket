@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { User } from '../entity/User';
 import { getRepository, Repository } from 'typeorm';
+import { User } from '../entity/User';
 
 export default class UserRouter {
   userRepository: Repository<User>;
@@ -10,8 +10,18 @@ export default class UserRouter {
     this.routes = Router();
     this.userRepository = getRepository(User);
 
+    this.routes.get('/', async (request, response) => {
+      try {
+        const data = await this.userRepository.find();
+
+        return response.json(data);
+      } catch (error) {
+        console.log(error);
+      }
+    });
+
     //Listar apenas um Usuário
-    this.routes.get('/user/:id', async (request, response) => {
+    this.routes.get('/:id', async (request, response) => {
       const { id } = request.params;
 
       try {
@@ -24,7 +34,7 @@ export default class UserRouter {
     });
 
     //Cadastrar Usuario Admin
-    this.routes.post('/user', async (request, response) => {
+    this.routes.post('/', async (request, response) => {
       try {
         const { name, surname, username, password } = request.body;
 
@@ -35,7 +45,11 @@ export default class UserRouter {
           password,
         };
 
+        console.log(userData);
+
         await this.userRepository.save(userData);
+
+        return response.json(userData);
       } catch (error) {
         console.log(`ERRO NA ROTA Cadastrar Usuario Admin ROUTES: ${error}`);
       }
