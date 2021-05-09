@@ -14,13 +14,14 @@ export default class FamilyRouter {
       try {
         const familyData = await this.familyRepository.find();
         return response.json(familyData);
-      } catch (erro) {
-        console.log(`ERRO NA ROTA GET FAMILY ROUTES: ${erro}`);
+      } catch (error) {
+        console.log(`ERRO NA ROTA GET FAMILY ROUTES: ${error}`);
       }
     });
 
     this.routes.get('/family/:id', async (request, response) => {
       const { id } = request.params;
+
       try {
         const oneResult = await this.familyRepository.findOne(id);
 

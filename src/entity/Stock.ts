@@ -7,18 +7,15 @@ import {
 } from 'typeorm';
 
 @Entity()
-export class User {
+export class Stock {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  value: number;
 
   @Column()
-  surname: string;
-
-  @Column()
-  username: string;
+  description: string;
 
   @CreateDateColumn()
   created_at: Date;
