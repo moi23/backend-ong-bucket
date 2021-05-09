@@ -4,7 +4,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
+
+import { Action } from './Action';
 
 @Entity()
 export class Family {
@@ -49,4 +53,8 @@ export class Family {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @ManyToMany(() => Action)
+  @JoinTable({ name: 'families_actions' })
+  actions: Action[];
 }
