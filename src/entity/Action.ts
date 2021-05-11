@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 
 import { Family } from './Family';
+import { User } from './User';
 
 @Entity()
 export class Action {
@@ -30,4 +31,8 @@ export class Action {
   @ManyToMany(() => Family)
   @JoinTable({ name: 'families_actions' })
   Families: Family[];
+
+  @ManyToMany(() => User)
+  @JoinTable({ name: 'users_actions' })
+  users: User[];
 }

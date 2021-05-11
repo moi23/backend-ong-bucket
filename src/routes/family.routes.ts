@@ -15,7 +15,10 @@ export default class FamilyRouter {
         const familyData = await this.familyRepository.find();
         return response.json(familyData);
       } catch (error) {
-        console.log(`ERRO NA ROTA GET FAMILY ROUTES: ${error}`);
+        return response.status(400).json({
+          message: 'Sorry cannot get family',
+          error: error,
+        });
       }
     });
 

@@ -4,7 +4,11 @@ import {
   Column,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToMany,
+  JoinTable,
 } from 'typeorm';
+
+import { Action } from './Action';
 
 @Entity()
 export class User {
@@ -28,4 +32,8 @@ export class User {
 
   @UpdateDateColumn()
   updated_at: Date;
+
+  @ManyToMany(() => Action)
+  @JoinTable({ name: 'users_actions' })
+  actions: Action[];
 }

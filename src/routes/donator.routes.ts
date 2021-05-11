@@ -10,7 +10,37 @@ export default class DonatorRouter {
     this.routes = Router();
     this.donatorRepository = getRepository(Donator);
 
-    this.routes.get('/donator', async (request, response, next) => {});
-    this.routes.post('/donator', async (request, response, next) => {});
+    // Get all Donators
+    this.routes.get('/', async (request, response) => {
+      try {
+        const allDonatorsData = await this.donatorRepository.find();
+
+        return response.json(allDonatorsData);
+      } catch (error) {
+        return response.status(400).json({
+          message: 'Sorry cannot get family',
+          error: error,
+        });
+      }
+    });
+
+    //Create Donator
+    this.routes.post('/', async (request, response) => {
+      try {
+        const { name, whatsapp } = request.body;
+
+        const donatorData = {
+          name,
+          whatsapp,
+        };
+
+        await this.donatorRepository.save(donatorData);
+        return response.json({
+          message: 'Donator Cadastrado com sucesso!',
+        });
+      } catch (error) {
+        console.log(`ERRO NA ROTA Donator Routes ${error}`);
+      }
+    });
   }
 }
