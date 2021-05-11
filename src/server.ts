@@ -20,7 +20,6 @@ createConnection()
     // });
 
     console.log('conexão feita com sucesso');
-
     server.listen(3333, () => console.log('API RUNNING ON PORT 3333'));
   })
   .catch((error) => console.log(error));
