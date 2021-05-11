@@ -10,6 +10,21 @@ export default class DonatorRouter {
     this.routes = Router();
     this.donatorRepository = getRepository(Donator);
 
+    // Get Donator by ID
+    this.routes.get('/:id', async (request, response) => {
+      const { id } = request.params;
+      try {
+        const oneResult = await this.donatorRepository.findOne(id);
+
+        return response.json(oneResult);
+      } catch (error) {
+        return response.status(400).json({
+          message: 'Sorry cannot get the donator by id',
+          error: error,
+        });
+      }
+    });
+
     // Get all Donators
     this.routes.get('/', async (request, response) => {
       try {
