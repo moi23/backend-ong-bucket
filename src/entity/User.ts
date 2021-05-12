@@ -33,7 +33,7 @@ export class User {
   @UpdateDateColumn()
   updated_at: Date;
 
-  @ManyToMany(() => Action)
-  @JoinTable({ name: 'users_actions' })
-  actions: Action[];
+  // @ManyToMany(() => Action)
+  // @JoinTable({ name: 'users_actions' })
+  // actions: Action[];
 }

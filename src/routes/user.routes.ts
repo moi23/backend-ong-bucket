@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import { getRepository, Repository } from 'typeorm';
 import { User } from '../entity/User';
+import bcrypt from 'bcrypt';
 
 export default class UserRouter {
   userRepository: Repository<User>;
@@ -10,6 +11,7 @@ export default class UserRouter {
     this.routes = Router();
     this.userRepository = getRepository(User);
 
+    //Listar todos
     this.routes.get('/', async (request, response) => {
       try {
         const data = await this.userRepository.find();
@@ -37,12 +39,19 @@ export default class UserRouter {
     this.routes.post('/', async (request, response) => {
       try {
         const { name, surname, username, password } = request.body;
+        const hash = await bcrypt.hash(password, 7);
+
+        if (!hash) {
+          return response.status(500).json({
+            message: 'erro no hash',
+          });
+        }
 
         const userData = {
           name,
           surname,
           username,
-          password,
+          password: hash,
         };
 
         console.log(userData);

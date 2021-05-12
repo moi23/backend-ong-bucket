@@ -32,7 +32,7 @@ export class Action {
   @JoinTable({ name: 'families_actions' })
   Families: Family[];
 
-  @ManyToMany(() => User)
-  @JoinTable({ name: 'users_actions' })
-  users: User[];
+  // @ManyToMany(() => User)
+  // @JoinTable({ name: 'users_actions' })
+  // users: User[];
 }
